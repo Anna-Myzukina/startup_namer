@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 # startup_namer
 
 
-## Part 1 Let`s starting the app:
+## Let`s starting the app:
 
 - [x] Create a Flutter project called startup_namer and migrate to null safety as follows.
 
@@ -129,4 +129,5 @@ Run the app.
 
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen1.PNG)
 
+##  Now Add icons to the list:
 
