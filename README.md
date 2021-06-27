@@ -130,4 +130,45 @@ Run the app.
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen1.PNG)
 
 ##  Now Add icons to the list:
+In this step, you'll add heart icons to each row. In the next step, you'll make them tappable and save the favorites.
+
+Add a _saved Set to _RandomWordsState. This Set stores the word pairings that the user favorited. Set is preferred to List because a properly implemented Set doesn't allow duplicate entries:
+
+        class _RandomWordsState extends State<RandomWords> {
+          final _suggestions = <WordPair>[];
+          final _saved = <WordPair>{};     // NEW
+          final _biggerFont = TextStyle(fontSize: 18.0);
+          ...
+        }
+        
+  In the _buildRow function, add an alreadySaved check to ensure that a word pairing has not already been added to favorites:
+  
+          Widget _buildRow(WordPair pair) {
+          final alreadySaved = _saved.contains(pair);  // NEW
+          ...
+        }
+        
+  In _buildRow() , you'll also add heart-shaped icons to the ListTile objects to enable favoriting. In the next step, you'll add the ability to interact with the heart icons.
+
+Add the icons after the text, as shown below:
+
+
+        Widget _buildRow(WordPair pair) {
+          final alreadySaved = _saved.contains(pair);
+          return ListTile(
+            title: Text(
+              pair.asPascalCase,
+              style: _biggerFont,
+            ),
+            trailing: Icon(   // NEW from here... 
+              alreadySaved ? Icons.favorite : Icons.favorite_border,
+              color: alreadySaved ? Colors.red : null,
+            ),                // ... to here.
+          );
+        }
+
+
+You should now see open hearts on each row, but they are not yet interactive.
+
+![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen2.PNG)
 
