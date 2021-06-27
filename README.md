@@ -132,7 +132,7 @@ Run the app.
 ##  Now Add icons to the list:
 In this step, you'll add heart icons to each row. In the next step, you'll make them tappable and save the favorites.
 
-Add a _saved Set to _RandomWordsState. This Set stores the word pairings that the user favorited. Set is preferred to List because a properly implemented Set doesn't allow duplicate entries:
+- [x] Add a _saved Set to _RandomWordsState. This Set stores the word pairings that the user favorited. Set is preferred to List because a properly implemented Set doesn't allow duplicate entries:
 
         class _RandomWordsState extends State<RandomWords> {
           final _suggestions = <WordPair>[];
@@ -141,14 +141,14 @@ Add a _saved Set to _RandomWordsState. This Set stores the word pairings that th
           ...
         }
         
-  In the _buildRow function, add an alreadySaved check to ensure that a word pairing has not already been added to favorites:
+ - [x] In the _buildRow function, add an alreadySaved check to ensure that a word pairing has not already been added to favorites:
   
           Widget _buildRow(WordPair pair) {
           final alreadySaved = _saved.contains(pair);  // NEW
           ...
         }
         
-  In _buildRow() , you'll also add heart-shaped icons to the ListTile objects to enable favoriting. In the next step, you'll add the ability to interact with the heart icons.
+- [x]  In _buildRow() , you'll also add heart-shaped icons to the ListTile objects to enable favoriting. In the next step, you'll add the ability to interact with the heart icons.
 
 Add the icons after the text, as shown below:
 
@@ -171,4 +171,42 @@ Add the icons after the text, as shown below:
 You should now see open hearts on each row, but they are not yet interactive.
 
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen2.PNG)
+
+
+## Add interactivity
+In this step, you'll make the heart icons tappable. When the user taps an entry in the list, toggling its favorited state, that word pairing is added or removed from a set of saved favorites.
+
+- [x] To do that, you'll modify the _buildRow function. If a word entry has already been added to favorites, tapping it again removes it from favorites. When a tile has been tapped, the function calls setState() to notify the framework that state has changed.
+
+Add onTap to the _buildRow method, as shown below:
+
+        Widget _buildRow(WordPair pair) {
+          final alreadySaved = _saved.contains(pair);
+          return ListTile(
+            title: Text(
+              pair.asPascalCase,
+              style: _biggerFont,
+            ),
+            trailing: Icon(
+              alreadySaved ? Icons.favorite : Icons.favorite_border,
+              color: alreadySaved ? Colors.red : null,
+            ),
+            onTap: () {      // NEW lines from here...
+              setState(() {
+                if (alreadySaved) {
+                  _saved.remove(pair);
+                } else { 
+                  _saved.add(pair); 
+                } 
+              });
+            },               // ... to here.
+          );
+        }
+        
+        
+Hot reload the app.
+
+You should be able to tap any tile to favorite or unfavorite the entry. Tapping a tile generates an implicit ink splash animation emanating from the tap point.
+
+![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen3.PNG)
 
