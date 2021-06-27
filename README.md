@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 # startup_namer
 
 
-## Let`s starting the app:
+## Part 1 Let`s starting the app:
 
 - [x] Create a Flutter project called startup_namer and migrate to null safety as follows.
 
@@ -126,5 +126,7 @@ While viewing the pubspec in Android Studio's editor view, click Pub get in the 
     Process finished with exit code 0
     
 Run the app.
+
+![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen1.PNG)
 
 
