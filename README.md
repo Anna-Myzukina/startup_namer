@@ -14,10 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-# startup_namer
 
 
-## Let`s starting the app:
+
+## 1 Let`s starting the app:
 
 - [x] Create a Flutter project called startup_namer and migrate to null safety as follows.
 
@@ -129,7 +129,7 @@ Run the app.
 
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen1.PNG)
 
-##  Now Add icons to the list:
+## 2 Add icons to the list:
 In this step, you'll add heart icons to each row. In the next step, you'll make them tappable and save the favorites.
 
 - [x] Add a _saved Set to _RandomWordsState. This Set stores the word pairings that the user favorited. Set is preferred to List because a properly implemented Set doesn't allow duplicate entries:
@@ -173,7 +173,7 @@ You should now see open hearts on each row, but they are not yet interactive.
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen2.PNG)
 
 
-## Add interactivity
+## 3 Add interactivity
 In this step, you'll make the heart icons tappable. When the user taps an entry in the list, toggling its favorited state, that word pairing is added or removed from a set of saved favorites.
 
 - [x] To do that, you'll modify the _buildRow function. If a word entry has already been added to favorites, tapping it again removes it from favorites. When a tile has been tapped, the function calls setState() to notify the framework that state has changed.
@@ -210,3 +210,93 @@ You should be able to tap any tile to favorite or unfavorite the entry. Tapping 
 
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen3.PNG)
 
+
+## 4 Navigate to a new screen
+In this step, you'll add a new page (called a route in Flutter) that displays the favorites. You'll learn how to navigate between the home route and the new route.
+
+In Flutter, the Navigator manages a stack containing the app's routes. Pushing a route onto the Navigator's stack updates the display to that route. Popping a route from the Navigator's stack returns the display to the previous route.
+
+Next, you'll add a list icon to the AppBar in the build method for _RandomWordsState. When the user clicks the list icon, a new route that contains the saved favorites is pushed to the Navigator, displaying the icon.
+
+
+- [x] Add the icon and its corresponding action to the build method:
+
+        class _RandomWordsState extends State<RandomWords> {
+          ...
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text('Startup Name Generator'),
+                actions: [
+                  IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+                ],
+              ),
+              body: _buildSuggestions(),
+            );
+          }
+          ...
+        }
+        
+ Tip: Some widget properties take a single widget (child), and other properties, such as action, take an array of widgets (children), as indicated by the square brackets ([]).
+ 
+- [x] Add a _pushSaved() function to the _RandomWordsState class.
+
+
+          void _pushSaved() {
+          }
+          
+Hot reload the app. 
+The list icon appears in the app bar. Tapping it does nothing yet because the _pushSaved function is empty.
+
+- [x] Next, you'll build a route and push it to the Navigator's stack. That action changes the screen to display the new route. The content for the new page is built in MaterialPageRoute's builder property in an anonymous function.
+
+Call Navigator.push, as shown below, which pushes the route to the Navigator's stack. The IDE will complain about invalid code, but you will fix that in the next section.
+
+
+                void _pushSaved() {
+                  Navigator.of(context).push(
+                  );
+                }
+
+- [x] Next, you'll add the MaterialPageRoute and its builder. For now, add the code that generates the ListTile rows. The divideTiles() method of ListTile adds horizontal spacing between each ListTile. The divided variable holds the final rows converted to a list by the convenience function, toList().
+
+Add the code, as shown in the following code snippet:
+
+
+          void _pushSaved() {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                // NEW lines from here...
+                builder: (BuildContext context) {
+                  final tiles = _saved.map(
+                    (WordPair pair) {
+                      return ListTile(
+                        title: Text(
+                          pair.asPascalCase,
+                          style: _biggerFont,
+                        ),
+                      );
+                    },
+                  );
+                  final divided = tiles.isNotEmpty
+                      ? ListTile.divideTiles(context: context, tiles: tiles).toList()
+                      : <Widget>[];
+
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text('Saved Suggestions'),
+                    ),
+                    body: ListView(children: divided),
+                  );
+                }, // ...to here.
+              ),
+            );
+          }
+        
+The builder property returns a Scaffold containing the app bar for the new route named SavedSuggestions. The body of the new route consists of a ListView containing the ListTiles rows. Each row is separated by a divider.
+
+Hot reload the app. Favorite some of the selections and tap the list icon in the app bar. The new route appears containing the favorites. Note that the Navigator adds a "Back" button to the app bar. You did not have to explicitly implement Navigator.pop. Tap the back button to return to the home route.
+
+
+![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen4.PNG)
