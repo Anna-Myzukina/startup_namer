@@ -307,7 +307,7 @@ Hot reload the app. Favorite some of the selections and tap the list icon in the
 
 ## 📝 License
 
-* [ ] See [LICENSE.md](https://github.com/Anna-Myzukina/facebook-clone/blob/master/LICENSE.md) for details.
+* [ ] See [LICENSE.md](https://github.com/Anna-Myzukina/startup_namer/blob/main/LICENSE.md) for details.
 
 ## Authors
 
