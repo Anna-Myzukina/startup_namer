@@ -300,3 +300,18 @@ Hot reload the app. Favorite some of the selections and tap the list icon in the
 
 
 ![img](https://github.com/Anna-Myzukina/startup_namer/blob/main/screenschot/screen4.PNG)
+
+## Show your support
+
+- [ ] Give a ⭐️ if you like this project!
+
+## 📝 License
+
+* [ ] See [LICENSE.md](https://github.com/Anna-Myzukina/facebook-clone/blob/master/LICENSE.md) for details.
+
+## Authors
+
+👤 **Author1**
+* GitHub: [Anna Muzykina](https://github.com/Anna-Myzukina)
+* LinkedIn: [Anna Muzykina](https://www.linkedin.com/in/anna-muzykina/)
+* email: anna.muzykina83@gmail.com
